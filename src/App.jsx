@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { StoreProvider } from './context/StoreContext';
+import { ShoppingCartProvider } from './context/ShoppingCartContext';
 import {
   HomePage,
   LocationsPage,
@@ -7,18 +8,27 @@ import {
   CheckoutPage,
   NotFoundPage,
 } from './pages';
+import Header from './components/Header';
+import { Container } from 'react-bootstrap';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/locations" element={<LocationsPage />} />
-        <Route path="/:location/menu" element={<OrderPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <ShoppingCartProvider>
+      <StoreProvider>
+        <BrowserRouter>
+          <Header />
+          <Container className="mb-4">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/locations" element={<LocationsPage />} />
+              <Route path="/:location/menu" element={<OrderPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Container>
+        </BrowserRouter>
+      </StoreProvider>
+    </ShoppingCartProvider>
   );
 }
 
