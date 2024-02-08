@@ -1,12 +1,8 @@
 {
-  "extends": [
-    "airbnb",
-    "plugin:prettier/recommended", // Enables eslint-plugin-prettier and eslint-config-prettier
-  ],
+  "extends": ["airbnb", "plugin:prettier/recommended"],
   "plugins": ["react", "prettier"],
   "rules": {
     "prettier/prettier": ["error"],
-    // You can override/add specific rules here
   },
   "env": {
     "browser": true,
