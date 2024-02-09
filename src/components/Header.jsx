@@ -1,34 +1,26 @@
-import { useLocation, matchPath, NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useShoppingCart } from '../context/ShoppingCartContext';
-import OrderNowButton from './OrderNowButton';
+import GenericButton from './GenericButton';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { ShoppingBagIcon, BrandLogoIcon } from './Icons';
+import { formatLocationName } from '../utils/format';
 
 const Header = () => {
-  const { currentLocation } = useShoppingCart();
-  const { totalCartQuantity, openCart } = useShoppingCart();
   const { pathname } = useLocation();
-  const pattern = '/:location/menu';
-  const match = matchPath({ path: pattern, end: false }, pathname);
+  const { currentLocation } = useShoppingCart();
+  const { totalCartQuantity, openCart, isOpen } = useShoppingCart();
+  const to = currentLocation ? `/${currentLocation.id}/menu` : '/locations';
 
-  const maybeCurrentLocation = currentLocation && (
-    <Nav.Link
-      as={NavLink}
-      to={`/${currentLocation.name}/menu`}
-      disabled={match}
-    >
-      {currentLocation.name}
-    </Nav.Link>
+  const maybeOrderButton = totalCartQuantity === 0 && pathname === '/' && (
+    <GenericButton to={to}>Order</GenericButton>
   );
 
-  const maybeOrderNowButton = !match && <OrderNowButton />;
-
-  const maybeCartIconButton = totalCartQuantity > 0 && (
+  const maybeCartButton = totalCartQuantity > 0 && (
     <Button style={{ position: 'relative' }} onClick={openCart}>
-      <ShoppingBagIcon />
+      <ShoppingBagIcon isOpen />
       <div
         style={{
-          color: 'black',
+          color: isOpen ? 'white' : 'black',
           width: '16px',
           height: '16px',
           position: 'absolute',
@@ -43,6 +35,12 @@ const Header = () => {
     </Button>
   );
 
+  const maybeCurrentLocation = currentLocation && (
+    <Nav.Link as={NavLink} to={`/${currentLocation.id}/menu`}>
+      Menu: {formatLocationName(currentLocation.name, true)}
+    </Nav.Link>
+  );
+
   return (
     <Navbar sticky="top" className="bg-white shadow-sm mb-3">
       <Container>
@@ -55,8 +53,8 @@ const Header = () => {
         <Nav.Link as={NavLink} to="/">
           <BrandLogoIcon />
         </Nav.Link>
-        {maybeOrderNowButton}
-        {maybeCartIconButton}
+        {maybeOrderButton}
+        {maybeCartButton}
       </Container>
     </Navbar>
   );

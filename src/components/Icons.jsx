@@ -35,13 +35,13 @@ export const TrashIcon = () => (
   </svg>
 );
 
-export const ShoppingBagIcon = () => (
+export const ShoppingBagIcon = isOpen => (
   <svg width="32" height="32" viewBox="0 0 32 32" fill="none" tabIndex="-1">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
       d="M4 9.33398V29.334H28V9.33398H4Z"
-      fill="rgba(230, 255, 85, 1)"
+      fill={isOpen ? 'rgba(230, 255, 85, 1)' : 'rgb(0, 0, 0)'}
       stroke="rgba(0, 0, 0, 1)"
     ></path>
     <path

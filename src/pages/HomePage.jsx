@@ -1,20 +1,22 @@
-import { useNavigate } from 'react-router-dom';
-import OrderNowButton from '../components/OrderNowButton';
+import GenericButton from '../components/GenericButton';
+import { useShoppingCart } from '../context/ShoppingCartContext';
 
 const HomePage = () => {
-  const navigate = useNavigate();
-  const gotomenu = () => {
-    navigate('/culver-city/menu');
-  };
+  const { currentLocation, totalCartQuantity } = useShoppingCart();
+  const to = currentLocation ? `/${currentLocation.id}/menu` : '/locations';
+  const maybeFinishPickUpOrderButton = totalCartQuantity > 0 && (
+    <GenericButton to={to}>Finish up your pickup order</GenericButton>
+  );
 
   return (
     <div style={{ display: 'flex' }}>
       <div>
-        <OrderNowButton />
+        <GenericButton to={to}>Order</GenericButton>
       </div>
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div>Welcome.</div>
-        <button onClick={gotomenu}>Finish up your pickup order</button>
+        {maybeFinishPickUpOrderButton}
+        <GenericButton to={to}>Order now</GenericButton>
       </div>
     </div>
   );
