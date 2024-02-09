@@ -16,7 +16,7 @@ export const ShoppingCartProvider = ({ children }) => {
     (total, { quantity }) => total + quantity,
     0
   );
-  const isLimitReached = totalCartQuantity >= currentLocation.itemLimit;
+  const isLimitReached = currentLocation ? totalCartQuantity >= currentLocation.itemLimit : false;
 
   const getItemQuantity = id =>
     cartItems.find(item => item.id === id)?.quantity || 0;
