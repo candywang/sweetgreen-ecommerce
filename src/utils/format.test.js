@@ -22,21 +22,9 @@ describe('#formatPrice', () => {
 
   it('returns price as a string with $ prepended and decimal to the hundredths', () => {
     expect(formatPrice(5)).toBe('$5.00');
-  });
-
-  it('returns price as a string with $ prepended and decimal to the hundredths', () => {
     expect(formatPrice(17.8)).toBe('$17.80');
-  });
-
-  it('returns price as a string with $ prepended and decimal to the hundredths', () => {
     expect(formatPrice(23.5)).toBe('$23.50');
-  });
-
-  it('returns price as a string with $ prepended and decimal to the hundredths', () => {
     expect(formatPrice(15.555)).toBe('$15.56');
-  });
-
-  it('returns price as a string with $ prepended and decimal to the hundredths', () => {
     expect(formatPrice(15.554)).toBe('$15.55');
   });
 });
