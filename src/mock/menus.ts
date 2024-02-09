@@ -1,5 +1,7 @@
+import { Menus } from '../types/types';
+
 // Note: Key should be unique store id
-const menus = {
+const menus: Menus = {
   'culver-city': [
     {
       category: 'Protein Plates',

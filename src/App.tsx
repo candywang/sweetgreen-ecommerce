@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import { StoreProvider } from './context/StoreContext';
 import { ShoppingCartProvider } from './context/ShoppingCartContext';
 import {
@@ -9,9 +10,8 @@ import {
   NotFoundPage,
 } from './pages';
 import Header from './components/Header';
-import { Container } from 'react-bootstrap';
 
-const App = () => {
+function App() {
   return (
     <ShoppingCartProvider>
       <StoreProvider>
@@ -30,6 +30,6 @@ const App = () => {
       </StoreProvider>
     </ShoppingCartProvider>
   );
-};
+}
 
 export default App;

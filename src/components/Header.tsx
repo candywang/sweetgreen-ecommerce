@@ -1,15 +1,16 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { useShoppingCart } from '../context/ShoppingCartContext';
-import GenericButton from './GenericButton';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
+import { useShoppingCart } from '../context/ShoppingCartContext';
+import { useStore } from '../context/StoreContext';
+import GenericButton from './GenericButton';
 import { BrandLogoIcon } from './Icons';
 import { formatLocationName } from '../utils/format';
 import ShoppingCartButton from './ShoppingCartButton';
 
-const Header = () => {
+function Header() {
   const { pathname } = useLocation();
-  const { currentLocation } = useShoppingCart();
-  const { totalCartQuantity, openCart, isOpen } = useShoppingCart();
+  const { currentLocation } = useStore();
+  const { totalCartQuantity, openCart } = useShoppingCart();
   const to = currentLocation ? `/${currentLocation.id}/menu` : '/locations';
 
   const maybeOrderButton = totalCartQuantity === 0 && pathname === '/' && (
@@ -55,6 +56,6 @@ const Header = () => {
       </Container>
     </Navbar>
   );
-};
+}
 
 export default Header;

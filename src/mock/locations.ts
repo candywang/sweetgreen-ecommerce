@@ -1,5 +1,6 @@
+import { Location } from '../types/types';
 // Note: Each location id should be a unique id
-const locations = [
+const locations: Location[] = [
   {
     id: 'culver-city',
     name: 'culver-city',

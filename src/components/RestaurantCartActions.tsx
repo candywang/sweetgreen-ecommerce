@@ -1,13 +1,21 @@
-import { useShoppingCart } from '../context/ShoppingCartContext';
+import { useStore } from '../context/StoreContext';
+import { useShoppingCart, CartItem } from '../context/ShoppingCartContext';
 import CartActions from './CartActions';
 
-const RestaurantCartActions = ({ id, quantity }) => {
+type RestaurantCartActionsProps = CartItem;
+
+function RestaurantCartActions({ id, quantity }: RestaurantCartActionsProps) {
   const {
     decrementItemQuantity,
     incrementItemQuantity,
     removeFromCart,
-    isLimitReached,
+    totalCartQuantity,
   } = useShoppingCart();
+  const { currentLocation } = useStore();
+
+  const isLimitReached = currentLocation
+    ? totalCartQuantity >= currentLocation.itemLimit
+    : false;
 
   return (
     <CartActions
@@ -19,6 +27,6 @@ const RestaurantCartActions = ({ id, quantity }) => {
       isDisabled={isLimitReached}
     />
   );
-};
+}
 
 export default RestaurantCartActions;

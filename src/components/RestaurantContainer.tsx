@@ -1,10 +1,14 @@
 import { Typography } from '@mui/material';
-import MenuItemCard from './MenuItemCard';
-import CategoryNavBar from './CategoryNavBar';
 import { Row, Col } from 'react-bootstrap';
+import MenuItemCard from './MenuItemCard';
+import { LocationMenu, MenuSection } from '../types/types';
 
-const RestaurantMenu = ({ menu }) => {
-  const { category, items } = menu;
+type RestaurantMenuSectionProps = {
+  menuSection: MenuSection;
+};
+
+function RestaurantMenuSection({ menuSection }: RestaurantMenuSectionProps) {
+  const { category, items } = menuSection;
   return (
     <div id={category} style={{ margin: '2rem 0' }}>
       <Typography variant="h4" gutterBottom>
@@ -19,16 +23,23 @@ const RestaurantMenu = ({ menu }) => {
       </Row>
     </div>
   );
+}
+
+type RestaurantContainerProps = {
+  restaurantMenu: LocationMenu;
 };
 
-const RestaurantContainer = ({ restaurantMenu }) => (
-  <>
-    {restaurantMenu.map(menu => (
-      <RestaurantMenu key={menu.category} menu={menu} />
-    ))}
-  </>
-);
+function RestaurantContainer({ restaurantMenu }: RestaurantContainerProps) {
+  return (
+    <>
+      {restaurantMenu.map((menuSection: MenuSection) => (
+        <RestaurantMenuSection
+          key={menuSection.category}
+          menuSection={menuSection}
+        />
+      ))}
+    </>
+  );
+}
 
 export default RestaurantContainer;
-
-// <CategoryNavBar categories={RestaurantMenu.map(menu => menu.category)} />

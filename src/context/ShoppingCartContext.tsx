@@ -1,66 +1,84 @@
-import { createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 import ShoppingCart from '../components/ShoppingCart';
 import useLocalStorage from '../hooks/useLocalStorage';
 
-const ShoppingCartContext = createContext();
+type ShoppingCartProviderProps = {
+  children: ReactNode;
+};
 
-export const ShoppingCartProvider = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [cartItems, setCartItems] = useLocalStorage('shopping-cart', []);
-  const [currentLocation, setCurrentLocation] = useLocalStorage(
-    'current-location',
-    null
+export type CartItem = {
+  id: number;
+  quantity: number;
+};
+
+type ShoppingCartContext = {
+  cartItems: CartItem[];
+  getItemQuantity: (id: number) => number;
+  incrementItemQuantity: (id: number) => void;
+  decrementItemQuantity: (id: number) => void;
+  removeFromCart: (id: number) => void;
+  totalCartQuantity: number;
+  openCart: () => void;
+  closeCart: () => void;
+  clearCart: () => void;
+  isOpen: boolean;
+};
+
+const ShoppingCartContext = createContext({} as ShoppingCartContext);
+
+export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    'shopping-cart',
+    []
   );
+
   // update this to ensure the item exists
   const totalCartQuantity = cartItems.reduce(
-    (total, { quantity }) => total + quantity,
+    (total: number, { quantity }: CartItem) => total + quantity,
     0
   );
-  const isLimitReached = currentLocation ? totalCartQuantity >= currentLocation.itemLimit : false;
 
-  const getItemQuantity = id =>
-    cartItems.find(item => item.id === id)?.quantity || 0;
+  const getItemQuantity = (id: number) =>
+    cartItems.find((item: CartItem) => item.id === id)?.quantity || 0;
 
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
-  const incrementItemQuantity = id => {
-    setCartItems(currItems => {
-      const hasItem = currItems.find(item => item.id === id) === undefined;
+  const incrementItemQuantity = (id: number) => {
+    setCartItems((currItems: CartItem[]) => {
+      const hasItem =
+        currItems.find((item: CartItem) => item.id === id) === undefined;
       if (hasItem) {
         return [...currItems, { id, quantity: 1 }];
-      } else {
-        return currItems.map(item => {
-          if (item.id === id) {
-            return { ...item, quantity: item.quantity + 1 };
-          } else {
-            return item;
-          }
-        });
       }
+      return currItems.map((item: CartItem) => {
+        if (item.id === id) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
     });
   };
 
-  const decrementItemQuantity = id => {
-    setCartItems(currItems => {
+  const decrementItemQuantity = (id: number) => {
+    setCartItems((currItems: CartItem[]) => {
       const hasOneQuantity =
         currItems.find(item => item.id === id)?.quantity === 1;
       if (hasOneQuantity) {
         return currItems.filter(item => item.id !== id);
-      } else {
-        return currItems.map(item => {
-          if (item.id === id) {
-            return { ...item, quantity: item.quantity - 1 };
-          } else {
-            return item;
-          }
-        });
       }
+      return currItems.map(item => {
+        if (item.id === id) {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+        return item;
+      });
     });
   };
 
-  const removeFromCart = id => {
-    setCartItems(currItems => {
+  const removeFromCart = (id: number) => {
+    setCartItems((currItems: CartItem[]) => {
       const itemToDelete = currItems.find(item => item.id === id);
       if (itemToDelete) {
         return currItems.filter(item => item.id !== id);
@@ -82,10 +100,7 @@ export const ShoppingCartProvider = ({ children }) => {
         totalCartQuantity,
         openCart,
         closeCart,
-        currentLocation,
-        setCurrentLocation,
         clearCart,
-        isLimitReached,
         isOpen,
       }}
     >
@@ -93,6 +108,6 @@ export const ShoppingCartProvider = ({ children }) => {
       {children}
     </ShoppingCartContext.Provider>
   );
-};
+}
 
 export const useShoppingCart = () => useContext(ShoppingCartContext);

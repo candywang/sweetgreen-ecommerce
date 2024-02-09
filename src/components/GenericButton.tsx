@@ -1,14 +1,20 @@
+import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, ButtonProps } from '@mui/material';
 
-const GenericButton = ({
+interface GenericButtonProps extends Omit<ButtonProps, 'onClick'> {
+  children?: ReactNode;
+  to?: string;
+  onClick?: () => void;
+}
+
+function GenericButton({
   children,
   to,
   onClick,
   variant = 'contained',
   color = 'primary',
-  ...props
-}) => {
+}: GenericButtonProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -20,10 +26,10 @@ const GenericButton = ({
   };
 
   return (
-    <Button variant={variant} color={color} onClick={handleClick} {...props}>
+    <Button variant={variant} color={color} onClick={handleClick}>
       {children}
     </Button>
   );
-};
+}
 
 export default GenericButton;

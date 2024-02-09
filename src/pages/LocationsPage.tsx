@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchLocations } from '../services/mockApi';
 import LocationCard from '../components/LocationCard';
+import { Location } from '../types/types';
 
-const LocationsPage = () => {
-  const [locations, setLocations] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+function LocationsPage() {
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<any>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,8 +30,8 @@ const LocationsPage = () => {
     }
   }, []);
 
-  const handleLocationSelect = async location => {
-    navigate(`/${location.id}/menu`);
+  const handleLocationSelect = async (locationId: string) => {
+    navigate(`/${locationId}/menu`);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -45,11 +46,11 @@ const LocationsPage = () => {
         <LocationCard
           key={location.id}
           location={location}
-          onSelect={handleLocationSelect}
+          onSelect={() => handleLocationSelect(location.id)}
         />
       ))}
     </div>
   );
-};
+}
 
 export default LocationsPage;

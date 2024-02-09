@@ -1,22 +1,45 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 import { fetchMenu, fetchLocation } from '../services/mockApi';
 import { useShoppingCart } from './ShoppingCartContext';
+import { LocationMenu, Location } from '../types/types';
+import useLocalStorage from '../hooks/useLocalStorage';
 
-const StoreContext = createContext();
+type StoreProviderProps = {
+  children: ReactNode;
+};
 
-export const StoreProvider = ({ children }) => {
-  const [storeMenu, setStoreMenu] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { clearCart, currentLocation, setCurrentLocation } = useShoppingCart();
-  const maxStoreQuantity = currentLocation?.itemLimit;
+type StoreContext = {
+  currentLocation: Location | null;
+  storeMenu: LocationMenu;
+  isLoading: boolean;
+  error: any;
+  updateLocation: (id: string) => void;
+};
+
+const StoreContext = createContext({} as StoreContext);
+
+export function StoreProvider({ children }: StoreProviderProps) {
+  const [storeMenu, setStoreMenu] = useState<LocationMenu>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentLocation, setCurrentLocation] =
+    useLocalStorage<Location | null>('current-location', null);
+  const [error, setError] = useState<any>(null);
+  const { clearCart } = useShoppingCart();
 
   useEffect(() => {
     const fetchMenuData = async () => {
       setIsLoading(true);
       try {
-        const menu = await fetchMenu(currentLocation.id);
-        setStoreMenu(menu);
+        const menu = currentLocation && (await fetchMenu(currentLocation.id));
+        if (menu) {
+          setStoreMenu(menu);
+        }
         setError(null);
       } catch (err) {
         setError('Failed to fetch menu items');
@@ -29,15 +52,14 @@ export const StoreProvider = ({ children }) => {
     fetchMenuData();
   }, [currentLocation]);
 
-  const updateLocation = async locationId => {
+  const updateLocation = async (id: string) => {
     try {
       setIsLoading(true);
-      const newLocationInfo = await fetchLocation(locationId);
+      const newLocationInfo = await fetchLocation(id);
       clearCart();
       setCurrentLocation(newLocationInfo);
-    } catch (error) {
-      console.error(error);
-      setError(error);
+    } catch (err) {
+      setError(err);
     } finally {
       setIsLoading(false);
     }
@@ -51,12 +73,11 @@ export const StoreProvider = ({ children }) => {
         isLoading,
         error,
         updateLocation,
-        maxStoreQuantity,
       }}
     >
       {children}
     </StoreContext.Provider>
   );
-};
+}
 
 export const useStore = () => useContext(StoreContext);

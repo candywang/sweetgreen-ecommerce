@@ -1,5 +1,5 @@
-import { formatLocationName, formatPrice } from './format';
 import { describe, expect, it } from 'vitest';
+import { formatLocationName, formatPrice } from './format';
 
 describe('#formatLocationName', () => {
   it('returns name without hyphens and capitilazies first character in each word', () => {
