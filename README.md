@@ -2,7 +2,7 @@
 
 ## Description
 
-This application is a simple e-commerce platform inspired by Sweetgreen's website. It features a streamlined user experience for viewing a restaurant's menu, managing a shopping cart, and checking out. The application includes five main pages: Home, Locations, Ordering, Checkout, and an Error page, with a persistent header component across pages.
+This application is a simple e-commerce platform inspired by Sweetgreen's website. It features a streamlined user experience for viewing a restaurant's menu, managing a shopping cart, and checking out.
 
 ## Built With React + Vite
 
@@ -25,11 +25,13 @@ For more about Vite and its React setup: [Vite React Guide](https://vitejs.dev/g
 Clone the repository and install dependencies:
 
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/candywang/sg-ecommerce-vite.git
+cd sg-ecommerce-vite
 npm run dev # or yarn run dev
 ```
 
 After running the `npm run dev` or `yarn run dev` command, the Vite development server will start. Upon successful startup, server address where the application is running will be displayed `http://localhost:3000` in the terminal. Open this URL in your web browser to view the application in local development mode.
 
 Please note, the exact port number (`3000` in this example) may vary if that port is already in use on your machine; Vite will automatically choose an available port and inform you of the actual URL to use.
+
+To stop the development server, you can simply send an interrupt signal to the npm run dev command by pressing Control + C.
