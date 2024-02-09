@@ -1,44 +1,34 @@
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import { Card } from 'react-bootstrap';
+import { formatLocationName } from '../utils/format';
 
 const LocationCard = ({ location, onSelect }) => (
   <Card
-    sx={{ maxWidth: 600, mb: 2, width: '90%' }}
+    className="mb-3 text-center"
+    style={{ maxWidth: '600px', width: '90%' }}
     onClick={() => onSelect(location)}
+    bg="light"
   >
-    <CardActionArea>
-      <CardMedia
-        component="img"
-        height="250"
-        image={location.imgUrl || 'https://via.placeholder.com/600x250'}
-        alt={location.name}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {location.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {location.address.street}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {`${location.address.city}, ${location.address.state} ${location.address.zip}`}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Phone: {location.phone}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" mt={1}>
-          Hours:
-        </Typography>
+    <Card.Img
+      variant="top"
+      src={location.imgUrl || 'https://via.placeholder.com/600x300'}
+      alt={location.name}
+      height="300"
+    />
+    <Card.Body>
+      <Card.Title>{formatLocationName(location.name)}</Card.Title>
+      <Card.Text className="text-muted">
+        {location.address.street}
+        <br />
+        {`${location.address.city}, ${location.address.state} ${location.address.zip}`}
+        <br />
+        Phone: {location.phone}
+        <br />
+        Hours:
         {location.hours.map((hour, index) => (
-          <Typography key={index} variant="body2" color="text.secondary">
-            {hour}
-          </Typography>
+          <div key={index}>{hour}</div>
         ))}
-      </CardContent>
-    </CardActionArea>
+      </Card.Text>
+    </Card.Body>
   </Card>
 );
 
