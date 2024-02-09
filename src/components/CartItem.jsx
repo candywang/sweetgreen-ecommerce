@@ -1,7 +1,7 @@
 import { Stack } from 'react-bootstrap';
 import menus from '../mock/menus';
 import { formatPrice } from '../utils/format';
-import CartActions from './CartActions';
+import RestaurantCartActions from './RestaurantCartActions';
 
 const CartItem = ({ id, quantity }) => {
   const menu = menus['culver-city'];
@@ -28,7 +28,7 @@ const CartItem = ({ id, quantity }) => {
         <div className="text-muted" style={{ fontSize: '.75rem' }}>
           {formatPrice(price)}
         </div>
-        <CartActions id={id} quantity={quantity} />
+        <RestaurantCartActions id={id} quantity={quantity} />
       </div>
     </Stack>
   );

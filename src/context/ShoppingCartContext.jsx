@@ -11,10 +11,12 @@ export const ShoppingCartProvider = ({ children }) => {
     'current-location',
     null
   );
+  // update this to ensure the item exists
   const totalCartQuantity = cartItems.reduce(
     (total, { quantity }) => total + quantity,
     0
   );
+  const isLimitReached = totalCartQuantity >= currentLocation.itemLimit;
 
   const getItemQuantity = id =>
     cartItems.find(item => item.id === id)?.quantity || 0;
@@ -83,6 +85,8 @@ export const ShoppingCartProvider = ({ children }) => {
         currentLocation,
         setCurrentLocation,
         clearCart,
+        isLimitReached,
+        isOpen,
       }}
     >
       <ShoppingCart isOpen={isOpen} />

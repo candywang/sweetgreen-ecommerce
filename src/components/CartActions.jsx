@@ -1,17 +1,14 @@
 import { Button, CardActions } from '@mui/material';
-import { useShoppingCart } from '../context/ShoppingCartContext';
 import { AddToBagIcon, TrashIcon } from './Icons';
 
-const CartActions = ({ id, quantity }) => {
-  const {
-    decrementItemQuantity,
-    incrementItemQuantity,
-    removeFromCart,
-    totalCartQuantity,
-    currentLocation,
-  } = useShoppingCart();
-  const isAtMaxLimit = totalCartQuantity >= currentLocation.itemLimit;
-
+const CartActions = ({
+  id,
+  quantity,
+  decrementItemQuantity,
+  incrementItemQuantity,
+  removeFromCart,
+  isDisabled = false,
+}) => {
   return (
     <CardActions className="d-flex align-items-center justify-content-center">
       {quantity > 0 && (
@@ -23,7 +20,7 @@ const CartActions = ({ id, quantity }) => {
       <Button
         onClick={() => incrementItemQuantity(id)}
         style={{ width: '40px', height: '40px' }}
-        disabled={isAtMaxLimit}
+        disabled={isDisabled}
       >
         {quantity > 0 ? '+' : <AddToBagIcon />}
       </Button>

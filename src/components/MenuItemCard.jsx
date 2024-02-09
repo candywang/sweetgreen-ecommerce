@@ -1,8 +1,7 @@
 import { Typography } from '@mui/material';
 import { Card } from 'react-bootstrap';
 import { useShoppingCart } from '../context/ShoppingCartContext';
-import { useStore } from '../context/StoreContext';
-import CartActions from './CartActions';
+import RestaurantCartActions from './RestaurantCartActions';
 
 // make this dynamic, because can just be menu item
 const MenuItemCard = ({ item }) => {
@@ -49,7 +48,7 @@ const MenuItemCard = ({ item }) => {
           {`$${price} | ${calories} Calories`}
         </Typography>
       </Card.Body>
-      <CartActions id={id} quantity={quantityInCart} />
+      <RestaurantCartActions id={id} quantity={quantityInCart} />
     </Card>
   );
 };
