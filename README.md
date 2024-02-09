@@ -27,6 +27,7 @@ Clone the repository and install dependencies:
 ```bash
 git clone https://github.com/candywang/sweetgreen-ecommerce.git
 cd sg-ecommerce-vite
+npm install # or yarn install
 npm run dev # or yarn run dev
 ```
 
