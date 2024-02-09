@@ -1,9 +1,10 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useShoppingCart } from '../context/ShoppingCartContext';
 import GenericButton from './GenericButton';
-import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
-import { ShoppingBagIcon, BrandLogoIcon } from './Icons';
+import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
+import { BrandLogoIcon } from './Icons';
 import { formatLocationName } from '../utils/format';
+import ShoppingCartButton from './ShoppingCartButton';
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -16,23 +17,7 @@ const Header = () => {
   );
 
   const maybeCartButton = totalCartQuantity > 0 && (
-    <Button style={{ position: 'relative' }} onClick={openCart}>
-      <ShoppingBagIcon isOpen />
-      <div
-        style={{
-          color: 'black',
-          width: '16px',
-          height: '16px',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          fontSize: '12px',
-        }}
-      >
-        {totalCartQuantity}
-      </div>
-    </Button>
+    <ShoppingCartButton onClick={openCart} quantity={totalCartQuantity} />
   );
 
   const maybeCurrentLocation = currentLocation && (
