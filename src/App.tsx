@@ -17,9 +17,9 @@ function App() {
     <ShoppingCartProvider>
       <StoreProvider>
         <BrowserRouter>
+          <ShoppingCart />
           <Header />
           <Container className="mb-4">
-            <ShoppingCart />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/locations" element={<LocationsPage />} />
