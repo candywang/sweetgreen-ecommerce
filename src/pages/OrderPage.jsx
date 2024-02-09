@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 import { useShoppingCart } from '../context/ShoppingCartContext';
-import MenuRender from '../components/MenuSection';
+import RestaurantContainer from '../components/RestaurantContainer';
 
 const OrderPage = () => {
   const { location } = useParams();
@@ -23,11 +23,7 @@ const OrderPage = () => {
     return <div>Error: {error}</div>;
   }
 
-  return (
-    <div>
-      <MenuRender menuData={storeMenu} />
-    </div>
-  );
+  return <RestaurantContainer restaurantMenu={storeMenu} />;
 };
 
 export default OrderPage;

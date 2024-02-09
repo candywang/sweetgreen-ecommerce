@@ -1,24 +1,33 @@
 import GenericButton from '../components/GenericButton';
 import { useShoppingCart } from '../context/ShoppingCartContext';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const HomePage = () => {
   const { currentLocation, totalCartQuantity } = useShoppingCart();
   const to = currentLocation ? `/${currentLocation.id}/menu` : '/locations';
   const maybeFinishPickUpOrderButton = totalCartQuantity > 0 && (
-    <GenericButton to={to}>Finish up your pickup order</GenericButton>
+    <GenericButton to={to} style={{ width: '100%', height: '30%' }}>
+      Finish up your pickup order
+    </GenericButton>
   );
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div>
-        <GenericButton to={to}>Order</GenericButton>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div>Welcome.</div>
-        {maybeFinishPickUpOrderButton}
-        <GenericButton to={to}>Order now</GenericButton>
-      </div>
-    </div>
+    <Container>
+      <Row style={{ height: '50vh' }}>
+        <Col>
+          <GenericButton to={to} style={{ height: '100%', width: '100%' }}>
+            Order
+          </GenericButton>
+        </Col>
+        <Col style={{ display: 'flex', flexDirection: 'column' }}>
+          <h1>Welcome.</h1>
+          {maybeFinishPickUpOrderButton}
+          <GenericButton to={to} style={{ marginTop: '10px' }}>
+            Order now
+          </GenericButton>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

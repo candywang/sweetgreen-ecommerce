@@ -3,8 +3,8 @@ import MenuItemCard from './MenuItemCard';
 import CategoryNavBar from './CategoryNavBar';
 import { Row, Col } from 'react-bootstrap';
 
-const MenuSection = ({ storeMenu }) => {
-  const { category, items } = storeMenu;
+const RestaurantMenu = ({ menu }) => {
+  const { category, items } = menu;
   return (
     <div id={category} style={{ margin: '2rem 0' }}>
       <Typography variant="h4" gutterBottom>
@@ -21,13 +21,14 @@ const MenuSection = ({ storeMenu }) => {
   );
 };
 
-const MenuRender = ({ menuData }) => (
+const RestaurantContainer = ({ restaurantMenu }) => (
   <>
-    <CategoryNavBar categories={menuData.map(data => data.category)} />
-    {menuData.map(storeMenu => (
-      <MenuSection key={storeMenu.category} storeMenu={storeMenu} />
+    {restaurantMenu.map(menu => (
+      <RestaurantMenu key={menu.category} menu={menu} />
     ))}
   </>
 );
 
-export default MenuRender;
+export default RestaurantContainer;
+
+// <CategoryNavBar categories={RestaurantMenu.map(menu => menu.category)} />
