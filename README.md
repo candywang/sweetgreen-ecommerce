@@ -25,7 +25,7 @@ For more about Vite and its React setup: [Vite React Guide](https://vitejs.dev/g
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/candywang/sg-ecommerce-vite.git
+git clone https://github.com/candywang/sweetgreen-ecommerce.git
 cd sg-ecommerce-vite
 npm run dev # or yarn run dev
 ```
