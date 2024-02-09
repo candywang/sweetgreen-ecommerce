@@ -1,9 +1,11 @@
+import { Container, Row, Col } from 'react-bootstrap';
 import GenericButton from '../components/GenericButton';
 import { useShoppingCart } from '../context/ShoppingCartContext';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useStore } from '../context/StoreContext';
 
-const HomePage = () => {
-  const { currentLocation, totalCartQuantity } = useShoppingCart();
+function HomePage() {
+  const { totalCartQuantity } = useShoppingCart();
+  const { currentLocation } = useStore();
   const to = currentLocation ? `/${currentLocation.id}/menu` : '/locations';
   const maybeFinishPickUpOrderButton = totalCartQuantity > 0 && (
     <GenericButton to={to} style={{ width: '100%', height: '30%' }}>
@@ -29,6 +31,6 @@ const HomePage = () => {
       </Row>
     </Container>
   );
-};
+}
 
 export default HomePage;

@@ -2,16 +2,21 @@ import { Typography } from '@mui/material';
 import { Card } from 'react-bootstrap';
 import { useShoppingCart } from '../context/ShoppingCartContext';
 import RestaurantCartActions from './RestaurantCartActions';
+import { MenuItem } from '../types/types';
+
+type MenuItemCardProps = {
+  item: MenuItem;
+};
 
 // make this dynamic, because can just be menu item
-const MenuItemCard = ({ item }) => {
+function MenuItemCard({ item }: MenuItemCardProps) {
   const { getItemQuantity } = useShoppingCart();
   const { id, name, imgUrl, tags, description, allergens, price, calories } =
     item;
   const quantityInCart = getItemQuantity(id);
 
   return (
-    <Card sx={{ maxWidth: 345 }} className="h-100">
+    <Card style={{ maxWidth: '345px' }} className="h-100">
       <Card.Img
         variant="top"
         src={imgUrl || 'https://via.placeholder.com/345x200'}
@@ -51,6 +56,6 @@ const MenuItemCard = ({ item }) => {
       <RestaurantCartActions id={id} quantity={quantityInCart} />
     </Card>
   );
-};
+}
 
 export default MenuItemCard;

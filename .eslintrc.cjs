@@ -1,20 +1,46 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
+  parser: '@typescript-eslint/parser',
   extends: [
-    'eslint:recommended',
+    'airbnb',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+    "prettier"
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
+  plugins: ['@typescript-eslint', 'react', 'prettier'],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest', // Use 'latest' to automatically use the most recent version
+    sourceType: 'module',
+  },
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    'prettier/prettier': ['error'],
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
     ],
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    "react/require-default-props": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }]
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
 };

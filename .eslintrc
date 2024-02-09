@@ -3,6 +3,7 @@
   "plugins": ["react", "prettier"],
   "rules": {
     "prettier/prettier": ["error"],
+    "react/require-default-props": "off",
   },
   "env": {
     "browser": true,

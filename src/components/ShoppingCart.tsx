@@ -4,7 +4,11 @@ import CartItem from './CartItem';
 import menus from '../mock/menus';
 import { formatPrice } from '../utils/format';
 
-const ShoppingCart = ({ isOpen }) => {
+type ShoppingCartProps = {
+  isOpen: boolean;
+};
+
+function ShoppingCart({ isOpen }: ShoppingCartProps) {
   const { closeCart, cartItems } = useShoppingCart();
   const menu = menus['culver-city'];
   const storeItems = menu.flatMap(category => category.items);
@@ -22,8 +26,8 @@ const ShoppingCart = ({ isOpen }) => {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Stack gap={3}>
-          {cartItems.map(item => (
-            <CartItem key={item.id} {...item} />
+          {cartItems.map(cartItem => (
+            <CartItem key={cartItem.id} cartItem={cartItem} />
           ))}
         </Stack>
         <div className="ms-auto fw-bold fs-5">
@@ -33,6 +37,6 @@ const ShoppingCart = ({ isOpen }) => {
       </Offcanvas.Body>
     </Offcanvas>
   );
-};
+}
 
 export default ShoppingCart;
