@@ -10,7 +10,7 @@ import ShoppingCartButton from './ShoppingCartButton';
 function Header() {
   const { pathname } = useLocation();
   const { currentLocation } = useStore();
-  const { totalCartQuantity, openCart } = useShoppingCart();
+  const { totalCartQuantity, toggleCart } = useShoppingCart();
   const to = currentLocation ? `/${currentLocation.id}/menu` : '/locations';
 
   const maybeOrderButton = totalCartQuantity === 0 && pathname === '/' && (
@@ -18,7 +18,7 @@ function Header() {
   );
 
   const maybeCartButton = totalCartQuantity > 0 && (
-    <ShoppingCartButton onClick={openCart} quantity={totalCartQuantity} />
+    <ShoppingCartButton onClick={toggleCart} quantity={totalCartQuantity} />
   );
 
   const maybeCurrentLocation = currentLocation && (

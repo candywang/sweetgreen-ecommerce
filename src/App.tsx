@@ -10,6 +10,7 @@ import {
   NotFoundPage,
 } from './pages';
 import Header from './components/Header';
+import ShoppingCart from './components/ShoppingCart';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <Container className="mb-4">
+            <ShoppingCart />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/locations" element={<LocationsPage />} />

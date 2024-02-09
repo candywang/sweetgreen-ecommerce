@@ -4,12 +4,8 @@ import CartItem from './CartItem';
 import menus from '../mock/menus';
 import { formatPrice } from '../utils/format';
 
-type ShoppingCartProps = {
-  isOpen: boolean;
-};
-
-function ShoppingCart({ isOpen }: ShoppingCartProps) {
-  const { closeCart, cartItems } = useShoppingCart();
+function ShoppingCart() {
+  const { closeCart, cartItems, isOpen } = useShoppingCart();
   const menu = menus['culver-city'];
   const storeItems = menu.flatMap(category => category.items);
   const subtotal = cartItems.reduce((total, cartItem) => {
@@ -17,7 +13,6 @@ function ShoppingCart({ isOpen }: ShoppingCartProps) {
     return total + (item?.price || 0) * cartItem.quantity;
   }, 0);
   const formattedSubtotal = formatPrice(subtotal);
-
   return (
     <Offcanvas show={isOpen} onHide={closeCart} placement="end">
       <Offcanvas.Header closeButton>
