@@ -30,7 +30,6 @@ const ShoppingCart = ({ isOpen }) => {
           Subtotal: {formattedSubtotal}
         </div>
         <div>*Reward discounts and final tax will be applied at checkout</div>
-        <div>VIEW MENU BUTTON | CHECKOUT BUTTON</div>
       </Offcanvas.Body>
     </Offcanvas>
   );
