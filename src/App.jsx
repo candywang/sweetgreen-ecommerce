@@ -11,7 +11,7 @@ import {
 import Header from './components/Header';
 import { Container } from 'react-bootstrap';
 
-function App() {
+const App = () => {
   return (
     <ShoppingCartProvider>
       <StoreProvider>
@@ -30,6 +30,6 @@ function App() {
       </StoreProvider>
     </ShoppingCartProvider>
   );
-}
+};
 
 export default App;
