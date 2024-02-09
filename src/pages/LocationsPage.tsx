@@ -7,6 +7,7 @@ import { Location } from '../types/types';
 function LocationsPage() {
   const [locations, setLocations] = useState<Location[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [error, setError] = useState<any>(null);
   const navigate = useNavigate();
 

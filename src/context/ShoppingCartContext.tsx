@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
 import ShoppingCart from '../components/ShoppingCart';
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -89,25 +89,36 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
 
   const clearCart = () => setCartItems([]);
 
+  const value = useMemo(
+    () => ({
+      cartItems,
+      getItemQuantity,
+      incrementItemQuantity,
+      decrementItemQuantity,
+      removeFromCart,
+      totalCartQuantity,
+      openCart,
+      closeCart,
+      clearCart,
+      isOpen,
+    }),
+    [cartItems, isOpen]
+  );
+
   return (
-    <ShoppingCartContext.Provider
-      value={{
-        cartItems,
-        getItemQuantity,
-        incrementItemQuantity,
-        decrementItemQuantity,
-        removeFromCart,
-        totalCartQuantity,
-        openCart,
-        closeCart,
-        clearCart,
-        isOpen,
-      }}
-    >
+    <ShoppingCartContext.Provider value={value}>
       <ShoppingCart isOpen={isOpen} />
       {children}
     </ShoppingCartContext.Provider>
   );
 }
 
-export const useShoppingCart = () => useContext(ShoppingCartContext);
+export const useShoppingCart = () => {
+  const context = useContext(ShoppingCartContext);
+  if (context === undefined) {
+    throw new Error(
+      'useShoppingCart must be used within a ShoppingCartProvider'
+    );
+  }
+  return context;
+};
