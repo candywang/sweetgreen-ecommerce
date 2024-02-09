@@ -10,12 +10,14 @@ import {
   NotFoundPage,
 } from './pages';
 import Header from './components/Header';
+import ShoppingCart from './components/ShoppingCart';
 
 function App() {
   return (
     <ShoppingCartProvider>
       <StoreProvider>
         <BrowserRouter>
+          <ShoppingCart />
           <Header />
           <Container className="mb-4">
             <Routes>

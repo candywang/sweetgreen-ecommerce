@@ -1,5 +1,6 @@
-import { Button, CardActions } from '@mui/material';
+import { CardActions } from '@mui/material';
 import { AddToBagIcon, TrashIcon } from './Icons';
+import GenericButton from './GenericButton';
 
 type CartActionsProps = {
   id: number;
@@ -22,21 +23,31 @@ function CartActions({
     <CardActions className="d-flex align-items-center justify-content-center">
       {quantity > 0 && (
         <>
-          <Button onClick={() => decrementItemQuantity(id)}>-</Button>
+          <GenericButton
+            variant="text"
+            onClick={() => decrementItemQuantity(id)}
+          >
+            -
+          </GenericButton>
           <div className="mx-3">{quantity}</div>
         </>
       )}
-      <Button
+      <GenericButton
+        variant="text"
         onClick={() => incrementItemQuantity(id)}
         style={{ width: '40px', height: '40px' }}
         disabled={isDisabled}
       >
         {quantity > 0 ? '+' : <AddToBagIcon />}
-      </Button>
+      </GenericButton>
       {quantity > 0 && (
-        <Button size="small" onClick={() => removeFromCart(id)}>
+        <GenericButton
+          variant="text"
+          size="small"
+          onClick={() => removeFromCart(id)}
+        >
           <TrashIcon />
-        </Button>
+        </GenericButton>
       )}
     </CardActions>
   );
