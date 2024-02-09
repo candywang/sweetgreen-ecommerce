@@ -12,8 +12,7 @@ function GenericButton({
   children,
   to,
   onClick,
-  variant = 'contained',
-  color = 'primary',
+  ...buttonProps
 }: GenericButtonProps) {
   const navigate = useNavigate();
 
@@ -26,7 +25,13 @@ function GenericButton({
   };
 
   return (
-    <Button variant={variant} color={color} onClick={handleClick}>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={handleClick}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...buttonProps}
+    >
       {children}
     </Button>
   );
