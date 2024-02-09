@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useShoppingCart } from '../context/ShoppingCartContext';
 import GenericButton from './GenericButton';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import { ShoppingBagIcon, BrandLogoIcon } from './Icons';
 import { formatLocationName } from '../utils/format';
 
@@ -20,7 +20,7 @@ const Header = () => {
       <ShoppingBagIcon isOpen />
       <div
         style={{
-          color: isOpen ? 'white' : 'black',
+          color: 'black',
           width: '16px',
           height: '16px',
           position: 'absolute',
@@ -44,17 +44,29 @@ const Header = () => {
   return (
     <Navbar sticky="top" className="bg-white shadow-sm mb-3">
       <Container>
-        <Nav className="me-auto">
-          <Nav.Link as={NavLink} to="/locations">
-            Locations
-          </Nav.Link>
-        </Nav>
-        {maybeCurrentLocation}
-        <Nav.Link as={NavLink} to="/">
-          <BrandLogoIcon />
-        </Nav.Link>
-        {maybeOrderButton}
-        {maybeCartButton}
+        <Row className="w-100">
+          <Col className="d-flex justify-content-start align-items-center">
+            <Nav>
+              <Nav.Link as={NavLink} to="/locations">
+                Locations
+              </Nav.Link>
+              {maybeCurrentLocation}
+            </Nav>
+          </Col>
+          <Col className="d-flex justify-content-center align-items-center">
+            <Nav>
+              <Nav.Link as={NavLink} to="/">
+                <BrandLogoIcon />
+              </Nav.Link>
+            </Nav>
+          </Col>
+          <Col className="d-flex justify-content-end align-items-center">
+            <Nav>
+              {maybeOrderButton}
+              {maybeCartButton}
+            </Nav>
+          </Col>
+        </Row>
       </Container>
     </Navbar>
   );
