@@ -11,6 +11,7 @@ import {
 } from './pages';
 import Header from './components/Header';
 import ShoppingCart from './components/ShoppingCart';
+import './styles/global.css';
 
 function App() {
   return (

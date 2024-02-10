@@ -18,7 +18,7 @@ function OrderPage() {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (typeof error === 'string') {
     return <div>Error: {error}</div>;
   }
 
