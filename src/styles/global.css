@@ -1,0 +1,7 @@
+:root {
+  --brand-primary-color: rgba(0, 71, 60, 1);
+  --brand-secondary-color: rgba(45, 107, 82, 1);
+  --brand-alternative-color: rgba(230, 255, 85, 1);
+  --padding: 16px;
+  --margin: 20px;
+}
