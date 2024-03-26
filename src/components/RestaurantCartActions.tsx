@@ -1,6 +1,7 @@
 import { useStore } from '../context/StoreContext';
 import { useShoppingCart, CartItem } from '../context/ShoppingCartContext';
 import CartActions from './CartActions';
+import { Container } from 'react-bootstrap';
 
 type RestaurantCartActionsProps = CartItem;
 
@@ -18,14 +19,16 @@ function RestaurantCartActions({ id, quantity }: RestaurantCartActionsProps) {
     : false;
 
   return (
-    <CartActions
-      id={id}
-      quantity={quantity}
-      decrementItemQuantity={decrementItemQuantity}
-      incrementItemQuantity={incrementItemQuantity}
-      removeFromCart={removeFromCart}
-      isDisabled={isLimitReached}
-    />
+    <Container>
+      <CartActions
+        id={id}
+        quantity={quantity}
+        decrementItemQuantity={decrementItemQuantity}
+        incrementItemQuantity={incrementItemQuantity}
+        removeFromCart={removeFromCart}
+        isDisabled={isLimitReached}
+      />
+    </Container>
   );
 }
 

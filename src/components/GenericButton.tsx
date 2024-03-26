@@ -21,7 +21,9 @@ function GenericButton({
   const handleClick = () => {
     if (to) {
       navigate(to);
-    } else if (onClick) {
+    }
+
+    if (onClick) {
       onClick();
     }
   };

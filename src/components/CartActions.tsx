@@ -26,6 +26,7 @@ function CartActions({
           <GenericButton
             variant="text"
             onClick={() => decrementItemQuantity(id)}
+            disabled={quantity === 1}
           >
             -
           </GenericButton>
@@ -35,7 +36,7 @@ function CartActions({
       <GenericButton
         variant="text"
         onClick={() => incrementItemQuantity(id)}
-        style={{ width: '40px', height: '40px' }}
+        // style={{ width: '40px', height: '40px' }}
         disabled={isDisabled}
       >
         {quantity > 0 ? '+' : <AddToBagIcon />}

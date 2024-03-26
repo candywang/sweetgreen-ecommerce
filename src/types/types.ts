@@ -37,3 +37,16 @@ export interface Location {
   hours: string[];
   itemLimit: number;
 }
+
+export interface Reward {
+  id: number;
+  name: string;
+  description: string;
+  applicableMenuItems: number[];
+  value: number;
+}
+
+export type CartItem = {
+  id: number;
+  quantity: number;
+};

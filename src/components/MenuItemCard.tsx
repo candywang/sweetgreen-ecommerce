@@ -24,36 +24,22 @@ function MenuItemCard({ item }: MenuItemCardProps) {
         height="200px"
         style={{ objectFit: 'cover' }}
       />
+      {tags.length
+        ? tags.map(tag => (
+            <Card.Text key={tag} style={{ position: 'absolute', top: '0' }}>
+              {tag}
+            </Card.Text>
+          ))
+        : null}
+      <Card.Title>{name}</Card.Title>
       <Card.Body className="d-flex flex-column">
-        {tags.length
-          ? tags.map(tag => (
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                key={tag}
-                style={{ position: 'absolute', top: '0' }}
-              >
-                {tag}
-              </Typography>
-            ))
-          : null}
-        <Typography gutterBottom variant="h5" component="h2">
-          {name}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {description}
-        </Typography>
+        <Card.Text>{description}</Card.Text>
         {allergens.length ? (
-          <Typography variant="body2" color="error" component="p">
-            Allergens: {allergens.join(', ')}
-          </Typography>
+          <Card.Text>Allergens: {allergens.join(', ')}</Card.Text>
         ) : null}
-        <Typography variant="body2" color="textPrimary" component="p">
-          {`$${price} | ${calories} Calories`}
-        </Typography>
+        <Card.Text>{`$${price} | ${calories} Calories`}</Card.Text>
+        <RestaurantCartActions id={id} quantity={quantityInCart} />
       </Card.Body>
-      <RestaurantCartActions id={id} quantity={quantityInCart} />
     </Card>
   );
 }
