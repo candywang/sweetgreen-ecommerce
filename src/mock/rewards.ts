@@ -1,6 +1,6 @@
-import { RewardsMock } from '../types/types';
+import { Reward } from '../types/types';
 
-const rewardsMock: RewardsMock[] = [
+const rewardsMock: Reward[] = [
   {
     id: 1,
     name: '$3 Off',

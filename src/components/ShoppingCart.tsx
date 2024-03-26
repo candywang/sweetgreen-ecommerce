@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Offcanvas, Stack } from 'react-bootstrap';
 import { useShoppingCart } from '../context/ShoppingCartContext';
 import CartItem from './CartItem';
@@ -13,9 +13,26 @@ function ShoppingCart() {
   const [selectedReward, setSelectedReward] = useState<Reward | null>(null);
   const { closeCart, cartItems, isOpen } = useShoppingCart();
   const { storeMenu } = useStore();
-  const applicableRewards = rewardsMock.filter(reward =>
-    checkCartItems(reward.applicableMenuItems, cartItems)
-  );
+  const [applicableRewards, setApplicableRewards] = useState<Reward[]>([]);
+
+  useEffect(() => {
+    const newApplicableRewards = rewardsMock.filter(reward =>
+      checkCartItems(reward.applicableMenuItems, cartItems)
+    );
+
+    setApplicableRewards(newApplicableRewards);
+
+    if (
+      (selectedReward &&
+        !newApplicableRewards.find(
+          reward => reward.id === selectedReward.id
+        )) ||
+      cartItems.length === 0
+    ) {
+      setSelectedReward(null);
+    }
+  }, [cartItems, selectedReward]);
+
   const storeItems = storeMenu.flatMap(category => category.items);
   const subtotal = cartItems.reduce((total, cartItem) => {
     const item = storeItems.find(i => i.id === cartItem.id);
@@ -48,16 +65,7 @@ function ShoppingCart() {
         <Stack gap={3}>
           {applicableRewards.map(reward => (
             <div key={reward.id}>
-              <button
-                type="submit"
-                style={{
-                  background:
-                    selectedReward && selectedReward.id === reward.id
-                      ? 'var(--brand-primary-color)'
-                      : 'lightGreen',
-                }}
-                onClick={() => onSelectReward(reward)}
-              >
+              <button type="submit" onClick={() => onSelectReward(reward)}>
                 {reward.name}
               </button>
             </div>
