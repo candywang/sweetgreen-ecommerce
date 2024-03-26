@@ -17,7 +17,7 @@ function Header() {
     <GenericButton to={to}>Order</GenericButton>
   );
 
-  const maybeCartButton = totalCartQuantity > 0 && (
+  const maybeCartButton = totalCartQuantity > 0 && pathname !== '/checkout' && (
     <ShoppingCartButton onClick={toggleCart} quantity={totalCartQuantity} />
   );
 

@@ -2,7 +2,7 @@ import { Stack } from 'react-bootstrap';
 import menus from '../mock/menus';
 import { formatPrice } from '../utils/format';
 import RestaurantCartActions from './RestaurantCartActions';
-import { CartItem as CI } from '../context/ShoppingCartContext';
+import { CartItem as CI } from '../types/types';
 
 type CartItemProps = {
   cartItem: CI;
@@ -35,6 +35,7 @@ function CartItem({ cartItem }: CartItemProps) {
         <div className="text-muted" style={{ fontSize: '.75rem' }}>
           {formatPrice(price)}
         </div>
+        <div>{formatPrice(price * quantity)}</div>
         <RestaurantCartActions id={id} quantity={quantity} />
       </div>
     </Stack>
